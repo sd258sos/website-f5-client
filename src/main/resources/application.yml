@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      isDebug: true
+      database: webstie-f5-client
+      host: localhost
+      port: 27017
+initialzation:
+  file:
+    irule: irule.json

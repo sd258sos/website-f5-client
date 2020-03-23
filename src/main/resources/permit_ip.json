@@ -1,0 +1,54 @@
+{
+  "kind": "tm:ltm:data-group:internal:internalstate",
+  "name": "permit_ip",
+  "fullPath": "permit_ip",
+  "generation": 6976,
+  "selfLink": "https://localhost/mgmt/tm/ltm/data-group/internal/permit_ip?ver=13.1.1.2",
+  "type": "ip",
+  "records": [
+    {
+      "name": "49.52.0.0/19",
+      "data": ""
+    },
+    {
+      "name": "58.198.176.0/20",
+      "data": ""
+    },
+    {
+      "name": "59.78.176.0/20",
+      "data": ""
+    },
+    {
+      "name": "172.0.0.0/8",
+      "data": ""
+    },
+    {
+      "name": "192.168.0.0/16",
+      "data": ""
+    },
+    {
+      "name": "202.120.80.0/20",
+      "data": ""
+    },
+    {
+      "name": "219.228.56.0/21",
+      "data": ""
+    },
+    {
+      "name": "219.228.128.0/20",
+      "data": ""
+    },
+    {
+      "name": "219.228.144.0/21",
+      "data": ""
+    },
+    {
+      "name": "222.204.232.0/21",
+      "data": ""
+    },
+    {
+      "name": "222.204.240.0/20",
+      "data": ""
+    }
+  ]
+}
