@@ -1,5 +1,9 @@
 package com.example.websitef5client.controller;
 
+import cn.hutool.http.HttpRequest;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.cloume.commons.rest.response.PagingRestResponse;
 import com.cloume.commons.rest.response.RestResponse;
 import com.cloume.commons.verify.IRule;
@@ -8,14 +12,18 @@ import com.example.websitef5client.model.DataGroup;
 import com.example.websitef5client.model.Irule;
 import com.example.websitef5client.model.Pool;
 import com.example.websitef5client.model.base.Paging;
+import com.example.websitef5client.model.web.Server;
+import com.example.websitef5client.model.web.WebSite;
 import com.example.websitef5client.service.Idatagroup;
 import com.example.websitef5client.service.Iirule;
 import com.example.websitef5client.service.Ipool;
+import com.example.websitef5client.util.SignUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -315,5 +323,55 @@ public class F5Controller {
         }
         ipool.delete(ipool.getRepository().findById(pool.getId()).get());
         return RestResponse.good(pool);
+    }
+
+
+    @GetMapping("/test")
+    public void test(){
+
+        long systemCurrentMillis = System.currentTimeMillis();
+        Map<String, Object> map =new HashMap<>();
+        map.put("timeStamp",systemCurrentMillis);
+        map.put("accessKey","ecnu");
+
+        String result = null;
+
+        JSONObject jsonObject = JSONUtil.createObj();
+
+        WebSite webSite = new WebSite();
+        webSite.setName("webTest");
+        webSite.setDomain("test.ecnu.edu.cn");
+        webSite.setStatus("1");
+        webSite.setExecution(false);
+        webSite.setAddress("psy.ecnu.edu.cn");
+        webSite.setDns("A");
+        List<Server> serverList = new ArrayList<>();
+        Server server1 = new Server();
+        server1.setIp("192.168.9.2");
+        server1.setPort("80");
+        server1.setProtocol("http");
+        server1.setContent("备注1");
+        serverList.add(server1);
+        Server server2 = new Server();
+        server2.setIp("192.168.9.2");
+        server2.setPort("80");
+        server2.setProtocol("http");
+        server2.setContent("备注1");
+        serverList.add(server2);
+        webSite.setServerList(serverList);
+        jsonObject = JSONUtil.parseObj(webSite, false);
+        String bodyJson = JSONUtil.toJsonStr(jsonObject);
+
+        try {
+            result= HttpRequest.post("http://127.0.0.1:8089/web/addWebsite").
+                    form("timeStamp",systemCurrentMillis).
+                    form("accessKey","ecnu").
+                    form("sign", SignUtil.createSign(map,"ecnu")).
+//                    body(bodyJson).
+                    timeout(20000).execute().body();
+            System.out.println(result);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

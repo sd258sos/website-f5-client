@@ -58,9 +58,21 @@ public class IruleController {
     @PostMapping("/rule")
     public RestResponse<?> postRule(@RequestBody Map<String, Object> body) {
         for(Map.Entry<String, Object> entry : body.entrySet()) {
-            System.out.print("Key = " + entry.getKey() + ",value=" + entry.getValue());
+            System.out.println("Key = " + entry.getKey() + ",value=" + entry.getValue());
         }
         return RestResponse.good(null);
     }
 
+    /**
+     * rule列表
+     *
+     * @return
+     */
+    @PutMapping("/rule/{id}")
+    public RestResponse<?> postiRuleHost(@RequestBody Map<String, Object> body) {
+        for(Map.Entry<String, Object> entry : body.entrySet()) {
+            System.out.println("Key = " + entry.getKey() + ",value=" + entry.getValue());
+        }
+        return RestResponse.good(null);
+    }
 }
